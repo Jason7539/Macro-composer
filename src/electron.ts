@@ -1,15 +1,30 @@
 const { app, BrowserWindow } = require("electron");
+const path = require("path");
 
 function createWindow() {
   let win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
+      preload: path.join(__dirname, "test.js"),
       nodeIntegration: true,
+      // contextIsolation: false,
     },
   });
 
   win.loadFile("index.html");
+  win.openDevTools();
 }
 
-app.on("ready", createWindow);
+function openGithub() {
+  let win = new BrowserWindow({
+    width: 800,
+    height: 600,
+  });
+
+  win.loadURL("https://github.com");
+}
+
+app.whenReady().then(() => {
+  createWindow();
+});
