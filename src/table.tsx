@@ -15,15 +15,13 @@ const Tablebody = () => {
   return <tbody />;
 };
 
-class Table extends React.Component {
-  render() {
-    return (
-      <table>
-        <TableHeader name="hello" />
-        <Tablebody />
-      </table>
-    );
-  }
-}
+const Table = (prop) => {
+  return (
+    <table>
+      <TableHeader name="hello" />
+      <Tablebody />
+    </table>
+  );
+};
 
 export default Table;
