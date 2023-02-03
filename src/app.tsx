@@ -1,14 +1,14 @@
 import * as React from "react";
 import { useState } from "react";
 import * as ReactDOM from "react-dom";
-import PlayButton from "./features/recorder/PlayButton";
+// import PlayButton from "./features/recorder/PlayButton";
 import Table from "./table";
 
 const Header = (prop: {
   name: string;
   setContainer: React.Dispatch<React.SetStateAction<Containers>>;
   container: Containers;
-}) => {
+}): JSX.Element => {
   return (
     <button
       onClick={() => {
@@ -48,7 +48,7 @@ enum Containers {
   composer = "composer",
 }
 
-const Container = (prop: { container: Containers }) => {
+const Container = (prop: { container: Containers }): JSX.Element => {
   if (prop.container === Containers.recorder) {
     return <h2>recorder</h2>;
   } else {
@@ -56,7 +56,7 @@ const Container = (prop: { container: Containers }) => {
   }
 };
 
-const App = () => {
+const App = (): JSX.Element => {
   const [container, setContainer] = useState<Containers>(Containers.recorder);
 
   return (

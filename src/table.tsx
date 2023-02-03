@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const TableHeader = (prop) => {
+const TableHeader = (prop: { name: string }) => {
   return (
     <thead>
       <tr>
@@ -11,11 +11,11 @@ const TableHeader = (prop) => {
   );
 };
 
-const Tablebody = () => {
+const Tablebody = (): JSX.Element => {
   return <tbody />;
 };
 
-const Table = (prop) => {
+const Table = (prop: { name: string }) => {
   return (
     <table>
       <TableHeader name="hello" />
