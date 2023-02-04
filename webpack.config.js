@@ -47,4 +47,23 @@ module.exports = [
       }),
     ],
   },
+
+  {
+    mode: "development",
+    entry: "./src/preload.ts",
+    target: "electron-preload",
+    module: {
+      rules: [
+        {
+          test: /\.ts$/,
+          include: /src/,
+          use: [{ loader: "ts-loader" }],
+        },
+      ],
+    },
+    output: {
+      path: __dirname + "/dist",
+      filename: "preload.js",
+    },
+  },
 ];
