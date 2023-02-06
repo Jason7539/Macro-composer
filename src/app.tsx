@@ -1,8 +1,9 @@
 import * as React from "react";
 import { useState } from "react";
 import * as ReactDOM from "react-dom";
+import ComposerContainer from "./features/composer/composerContainer";
+import RecorderContainer from "./features/recorder/recorderContainer";
 // import PlayButton from "./features/recorder/PlayButton";
-import Table from "./table";
 
 const Header = (prop: {
   name: string;
@@ -20,29 +21,6 @@ const Header = (prop: {
   );
 };
 
-// class App extends React.Component {
-//   render() {
-//     const characters = [
-//       {
-//         name: "charlie",
-//         job: "janitor",
-//       },
-//     ];
-
-//     return (
-//       <div className="app">
-//         <div>
-//           <Header name="recorder" />
-//           <Header name="composer" />
-//         </div>
-
-//         <h1>Hello,updated React!</h1>
-//         <PlayButton></PlayButton>
-//         <Table />
-//       </div>
-//     );
-//   }
-// }
 enum Containers {
   recorder = "recorder",
   composer = "composer",
@@ -50,9 +28,9 @@ enum Containers {
 
 const Container = (prop: { container: Containers }): JSX.Element => {
   if (prop.container === Containers.recorder) {
-    return <h2>recorder</h2>;
+    return <RecorderContainer></RecorderContainer>;
   } else {
-    return <h2>composer</h2>;
+    return <ComposerContainer></ComposerContainer>;
   }
 };
 

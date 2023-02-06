@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "Cross-platform desktop application for composing and recording macros.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config ./webpack.config.js",
-    "start": "npm run build && electron ./dist/electron.js"
+    "build": "webpack --config ./webpack.config.cjs",
+    "start": "npm run build && electron ./dist/electron.cjs"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/Jason7539/Macro-composer#readme",
   "devDependencies": {
+    "@types/electron": "^1.6.10",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "eslint": "^8.32.0",
