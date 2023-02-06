@@ -1,32 +1,31 @@
-import WindowControlHandler from "./windowControl";
-
-// import { app, BrowserWindow, ipcMain } from "electron";
 import { BrowserWindow, ipcMain, app } from "electron";
 import path from "path";
+import WindowControlHandler from "./windowControlHandler";
+
+// module augmentation for opening dev tools
+declare module "electron" {
+  interface BrowserWindow {
+    openDevTools: any;
+  }
+}
 
 function createWindow() {
   let win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, "preload.cjs"),
-      nodeIntegration: true,
+      preload: path.join(__dirname, "mainPreload.cjs"),
+      nodeIntegration: false,
       // contextIsolation: false,
     },
   });
 
   // Listening to events inside the main process
   // // load in a separate files for concerns
-  new WindowControlHandler(ipcMain).listen();
-
-  // ipcMain.handle("minimizeWindow", () => {
-  //   setTimeout(() => {
-  //     BrowserWindow?.getFocusedWindow()?.minimize();
-  //   }, 1000);
-  // });
+  new WindowControlHandler(ipcMain, win.id).listen();
 
   win.loadFile("index.html");
-  // win.openDevTools();
+  win.openDevTools();
 }
 
 function openGithub() {
@@ -41,5 +40,3 @@ function openGithub() {
 app.whenReady().then(() => {
   createWindow();
 });
-
-export { BrowserWindow };

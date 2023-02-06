@@ -25,7 +25,7 @@ module.exports = [
 
   {
     mode: "development",
-    entry: "./src/index.tsx",
+    entry: "./src/app.tsx",
     target: "electron-renderer",
     devtool: "source-map",
     resolve: {
@@ -53,7 +53,36 @@ module.exports = [
 
   {
     mode: "development",
-    entry: "./src/preload.ts",
+    entry: "./src/modal.tsx",
+    target: "electron-renderer",
+    devtool: "source-map",
+    resolve: {
+      extensions: [".ts", ".tsx", ".js"],
+    },
+    module: {
+      rules: [
+        {
+          test: /\.ts(x?)$/,
+          include: /src/,
+          use: [{ loader: "ts-loader" }],
+        },
+      ],
+    },
+    output: {
+      path: __dirname + "/dist",
+      filename: "modal.js",
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+        template: "./src/index.html",
+        filename: "modal.html",
+      }),
+    ],
+  },
+
+  {
+    mode: "development",
+    entry: "./src/mainPreload.ts",
     target: "electron-preload",
     module: {
       rules: [
@@ -66,7 +95,26 @@ module.exports = [
     },
     output: {
       path: __dirname + "/dist",
-      filename: "preload.cjs",
+      filename: "mainPreload.cjs",
+    },
+  },
+
+  {
+    mode: "development",
+    entry: "./src/modalPreload.ts",
+    target: "electron-preload",
+    module: {
+      rules: [
+        {
+          test: /\.ts$/,
+          include: /src/,
+          use: [{ loader: "ts-loader" }],
+        },
+      ],
+    },
+    output: {
+      path: __dirname + "/dist",
+      filename: "modalPreload.cjs",
     },
   },
 ];

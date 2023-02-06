@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import * as ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import ComposerContainer from "./features/composer/composerContainer";
 import RecorderContainer from "./features/recorder/recorderContainer";
 // import PlayButton from "./features/recorder/PlayButton";
@@ -58,5 +58,7 @@ const App = (): JSX.Element => {
   );
 };
 
-// ReactDOM.render(<App />, document.getElementById("app"));
-export default App;
+ReactDOM.createRoot(document.getElementById("app") as HTMLElement).render(
+  <App />
+);
+// export default App;

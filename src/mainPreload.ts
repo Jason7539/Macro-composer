@@ -1,14 +1,14 @@
 import { contextBridge, ipcRenderer } from "electron";
 
-console.log("inside preload");
-
 contextBridge.exposeInMainWorld("windowControl", {
   node: () => process.versions.node,
   chrome: () => process.versions.chrome,
   electron: () => process.versions.electron,
-  minimizeWindow: () => {
-    ipcRenderer.invoke("minimizeWindow");
+  minmizeMainWindow: () => {
+    ipcRenderer.invoke("minmizeMainWindow");
   },
-  openRecordWidget: () => {},
+  openRecordWidget: () => {
+    ipcRenderer.invoke("openRecordWidget");
+  },
   // we can also expose variables, not just functions
 });
