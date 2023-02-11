@@ -31,6 +31,7 @@ export default class WindowControlHandler {
         parent: mainWindow,
         width: 400,
         height: 200,
+        modal: true,
         webPreferences: {
           preload: path.join(__dirname, "modalPreload.cjs"),
         },
