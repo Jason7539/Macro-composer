@@ -5,5 +5,8 @@ declare const windowControl: {
 };
 
 declare const automationControl: {
-  test: () => string;
+  beginMacroRecording: () => Promise<void>;
+  pauseMacroRecording: () => Promise<void>;
+  cancelMacroRecording: () => Promise<void>;
+  saveMacroRecording: () => Promise<void>;
 };

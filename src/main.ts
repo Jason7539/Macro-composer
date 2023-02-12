@@ -1,5 +1,6 @@
 import { BrowserWindow, ipcMain, app } from "electron";
 import path from "path";
+import AutomationControlHandler from "./automationControlHandler";
 import WindowControlHandler from "./windowControlHandler";
 
 // module augmentation for opening dev tools
@@ -23,6 +24,7 @@ function createWindow() {
   // Listening to events inside the main process
   // // load in a separate files for concerns
   new WindowControlHandler(ipcMain, win.id).listen();
+  new AutomationControlHandler(ipcMain).listen();
 
   win.loadFile("index.html");
   win.openDevTools();

@@ -4,7 +4,9 @@ import ReactDOM from "react-dom/client";
 const Modal = () => {
   return (
     <>
-      <button>play/finish{automationControl.test()}</button>
+      <button onClick={automationControl.beginMacroRecording}>
+        play/finish
+      </button>
       <button>pause</button>
       <button>cancel</button>
     </>
