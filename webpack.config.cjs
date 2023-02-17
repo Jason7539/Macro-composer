@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path");
 
 module.exports = [
   {
@@ -6,7 +7,10 @@ module.exports = [
     entry: "./src/main.ts",
     target: "electron-main",
     resolve: {
-      extensions: [".ts", ".tsx", ".js"],
+      extensions: [".ts", ".tsx", ".d.ts", ".js"],
+    },
+    node: {
+      __dirname: true,
     },
     module: {
       rules: [
@@ -29,7 +33,7 @@ module.exports = [
     target: "electron-renderer",
     devtool: "source-map",
     resolve: {
-      extensions: [".ts", ".tsx", ".js"],
+      extensions: [".ts", ".tsx", ".d.ts", ".js"],
     },
     module: {
       rules: [
@@ -57,7 +61,7 @@ module.exports = [
     target: "electron-renderer",
     devtool: "source-map",
     resolve: {
-      extensions: [".ts", ".tsx", ".js"],
+      extensions: [".ts", ".tsx", ".d.ts", ".js"],
     },
     module: {
       rules: [
@@ -94,7 +98,7 @@ module.exports = [
       ],
     },
     output: {
-      path: __dirname + "/dist",
+      path: path.join(__dirname, "/dist"),
       filename: "mainPreload.cjs",
     },
   },
@@ -113,7 +117,7 @@ module.exports = [
       ],
     },
     output: {
-      path: __dirname + "/dist",
+      path: path.join(__dirname, "/dist"),
       filename: "modalPreload.cjs",
     },
   },

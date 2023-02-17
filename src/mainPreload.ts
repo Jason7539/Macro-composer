@@ -1,5 +1,6 @@
 import { contextBridge, ipcRenderer } from "electron";
-
+console.log("hello world");
+console.log("hello world---------------------sdfsdfsdfsdfsdf");
 contextBridge.exposeInMainWorld("windowControl", {
   node: () => process.versions.node,
   chrome: () => process.versions.chrome,

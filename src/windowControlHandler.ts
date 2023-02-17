@@ -33,7 +33,8 @@ export default class WindowControlHandler {
         height: 200,
         modal: true,
         webPreferences: {
-          preload: path.join(__dirname, "modalPreload.cjs"),
+          // when node option is true in webpack.config.cjs __dirname /src
+          preload: path.resolve(__dirname, "..", "dist", "modalPreload.cjs"),
         },
       });
       modalWindow.loadFile("modal.html");
