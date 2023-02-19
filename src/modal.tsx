@@ -7,7 +7,7 @@ const Modal = () => {
       <button onClick={automationControl.beginMacroRecording}>
         play/finish
       </button>
-      <button>pause</button>
+      <button onClick={automationControl.pauseMacroRecording}>pause</button>
       <button>cancel</button>
     </>
   );
