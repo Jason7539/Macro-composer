@@ -11,5 +11,10 @@ contextBridge.exposeInMainWorld("windowControl", {
   openRecordWidget: () => {
     ipcRenderer.invoke("openRecordWidget");
   },
+
   // we can also expose variables, not just functions
+});
+
+contextBridge.exposeInMainWorld("fsFetch", {
+  getRecordings: () => ipcRenderer.invoke("getRecordings"),
 });

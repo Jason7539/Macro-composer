@@ -61,4 +61,3 @@ const App = (): JSX.Element => {
 ReactDOM.createRoot(document.getElementById("app") as HTMLElement).render(
   <App />
 );
-// export default App;

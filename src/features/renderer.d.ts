@@ -10,3 +10,7 @@ declare const automationControl: {
   cancelMacroRecording: () => Promise<void>;
   saveMacroRecording: () => Promise<void>;
 };
+
+declare const fsFetch: {
+  getRecordings: () => Promise<string[]>;
+};

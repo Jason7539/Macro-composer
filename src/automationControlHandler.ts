@@ -2,21 +2,33 @@ import { app } from "electron";
 import path from "path";
 import fs from "fs";
 import lepikjs from "lepikjs";
+import { v4 as uuidv4 } from "uuid";
 
 export default class AutomationControlHandler {
   ipcMain: Electron.IpcMain;
+  macroBaseDir: string;
   recordDir: string;
+  composeDir: string;
   keyboardMouseListener: KeyboardMouseListener;
 
-  constructor(IpcMain: Electron.IpcMain) {
+  constructor(IpcMain: Electron.IpcMain, macroBaseDir: string) {
     this.ipcMain = IpcMain;
-    this.recordDir = path.join(app.getPath("appData"), "Macro-Composer");
+    this.macroBaseDir = macroBaseDir;
     this.keyboardMouseListener = new KeyboardMouseListener();
 
+    this.recordDir = path.join(this.macroBaseDir, "record");
+    this.composeDir = path.join(this.macroBaseDir, "compose");
+
+    // Creating app directory and record compse directories
     if (!fs.existsSync(this.recordDir)) {
-      console.log("creating directory");
-      let dirReturn = fs.mkdirSync(this.recordDir, { recursive: true });
-      console.log("directory created at: ", dirReturn);
+      fs.mkdirSync(this.recordDir, {
+        recursive: true,
+      });
+      console.log("creating record directory...,", this.recordDir);
+    }
+    if (!fs.existsSync(this.composeDir)) {
+      fs.mkdirSync(this.composeDir, { recursive: true });
+      console.log("creating compose directory...,", this.composeDir);
     }
   }
   listen() {
@@ -42,8 +54,11 @@ export default class AutomationControlHandler {
       );
 
       // writing recording to json file
+      let id = uuidv4();
+
+      this.keyboardMouseListener.currentRecording.name = id;
       fs.writeFileSync(
-        path.join(__dirname, "test.json"),
+        path.join(this.recordDir, id),
         JSON.stringify(this.keyboardMouseListener.currentRecording)
       );
     });
