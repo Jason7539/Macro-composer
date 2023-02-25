@@ -35,6 +35,11 @@ function createWindow() {
 
   win.loadFile("index.html");
   win.openDevTools();
+
+  win.on("restore", () => {
+    win.webContents.send("onWindowRestore");
+    console.log("restored");
+  });
 }
 
 function openGithub() {

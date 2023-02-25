@@ -13,4 +13,6 @@ declare const automationControl: {
 
 declare const fsFetch: {
   getRecordings: () => Promise<string[]>;
+  onWindowRestore: (callback: (event) => void) => Electron.IpcRenderer;
+  offWindowRestore: () => void;
 };

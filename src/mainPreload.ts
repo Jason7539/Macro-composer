@@ -17,4 +17,9 @@ contextBridge.exposeInMainWorld("windowControl", {
 
 contextBridge.exposeInMainWorld("fsFetch", {
   getRecordings: () => ipcRenderer.invoke("getRecordings"),
+  onWindowRestore: (callback: any) =>
+    ipcRenderer.on("onWindowRestore", callback),
+  offWindowRestore: () => {
+    ipcRenderer.removeAllListeners("onWindowRestore");
+  },
 });
