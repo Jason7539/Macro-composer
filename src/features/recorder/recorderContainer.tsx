@@ -1,8 +1,9 @@
 import * as React from "react";
 import { useState } from "react";
 import RecordButton from "./recordButton";
+import SingleRecording from "./singleRecording";
 
-const RecorderContainer = (): JSX.Element => {
+const RecorderContainer = () => {
   const [recordFiles, setrecordFiles] = useState<string[]>([]);
 
   const updateRecordfiles = async () => {
@@ -25,13 +26,14 @@ const RecorderContainer = (): JSX.Element => {
     };
   }, [recordFiles]);
 
-  let files = recordFiles.map((file) => <li key={file}>{file}</li>);
+  let files = recordFiles.map((file) => (
+    <SingleRecording key={file} fileName={file}></SingleRecording>
+  ));
+
   return (
     <div>
       <RecordButton></RecordButton>
       <ul>{files}</ul>
-      {/* Read recordings from files */}
-      {/* recordings lists  */}
       <div></div>
     </div>
   );

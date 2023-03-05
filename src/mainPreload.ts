@@ -23,3 +23,7 @@ contextBridge.exposeInMainWorld("fsFetch", {
     ipcRenderer.removeAllListeners("onWindowRestore");
   },
 });
+contextBridge.exposeInMainWorld("automationControl", {
+  playRecordFile: (fileName: string) =>
+    ipcRenderer.invoke("playRecordFile", fileName),
+});

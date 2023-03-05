@@ -9,6 +9,7 @@ declare const automationControl: {
   pauseMacroRecording: () => Promise<void>;
   cancelMacroRecording: () => Promise<void>;
   saveMacroRecording: () => Promise<void>;
+  playRecordFile: (fileName: string) => Promise<void>;
 };
 
 declare const fsFetch: {

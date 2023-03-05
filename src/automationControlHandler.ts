@@ -1,4 +1,4 @@
-import { app } from "electron";
+import { app, ipcMain } from "electron";
 import path from "path";
 import fs from "fs";
 import lepikjs from "lepikjs";
@@ -34,6 +34,7 @@ export default class AutomationControlHandler {
   listen() {
     this.beginMacroRecording();
     this.pauseMacroRecording();
+    this.playRecordFile();
   }
 
   beginMacroRecording() {
@@ -66,6 +67,79 @@ export default class AutomationControlHandler {
 
   cancelMacroRecording() {}
   saveMacroRecording() {}
+
+  playRecordFile() {
+    ipcMain.handle("playRecordFile", async (_event, fileName: string) => {
+      // read file from fileName
+      // loop through steps array
+      try {
+        let recordContents = JSON.parse(
+          fs.readFileSync(path.join(this.recordDir, fileName), {
+            encoding: "utf8",
+          })
+        );
+
+        await this.processActions(recordContents.steps, 0);
+
+        console.log(recordContents.steps.length);
+      } catch (e) {
+        console.log(e);
+        console.log("error reading file");
+      }
+    });
+  }
+
+  async executeAction(action: action) {
+    console.log("starting execute action");
+    switch (action.event) {
+      case "keyPress":
+        lepikjs.keyTap(action.key);
+        console.log("keypress");
+        break;
+      case "keyRelease":
+        console.log("keyrelease");
+        break;
+      case "mouseClick":
+        lepikjs.mouseClick(action.button);
+        console.log("mouseClick");
+        break;
+      case "mouseDoubleClick":
+        lepikjs.mouseDoubleClick(action.button);
+        console.log("mouseDoubleClick");
+        break;
+      case "mouseMove":
+        lepikjs.mouseMove(action.x, action.y, true);
+        console.log("mouseMove");
+        break;
+      default:
+        console.log("unknown action");
+        break;
+    }
+    return;
+  }
+  async processActions(commands: action[], currentIndex: number) {
+    // execute current action with the current Index
+
+    for (let i = 0; i < commands.length; i++) {
+      this.executeAction(commands[i]);
+      // await new Promise((resolve) =>
+      //   setTimeout(resolve, commands[i].nextEventDelay)
+      // );
+    }
+    // if (currentIndex >= commands.length) {
+    //   return;
+    // }
+    // let currentAction = commands[currentIndex];
+
+    // console.log("executing at index: ", currentIndex);
+    // await this.executeAction(currentAction);
+
+    // // pause execution until the next call
+    // await new Promise((resolve) =>
+    //   setTimeout(resolve, currentAction.nextEventDelay)
+    // );
+    // this.processActions(commands, ++currentIndex);
+  }
 }
 
 // On begin macro recording. instatiate lepik class . make sure it's singleton.
