@@ -17,6 +17,8 @@ contextBridge.exposeInMainWorld("windowControl", {
 
 contextBridge.exposeInMainWorld("fsFetch", {
   getRecordings: () => ipcRenderer.invoke("getRecordings"),
+  deleteRecording: (fileName: string) =>
+    ipcRenderer.invoke("deleteRecording", fileName),
   onWindowRestore: (callback: any) =>
     ipcRenderer.on("onWindowRestore", callback),
   offWindowRestore: () => {

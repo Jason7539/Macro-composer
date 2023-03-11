@@ -27,7 +27,11 @@ const RecorderContainer = () => {
   }, [recordFiles]);
 
   let files = recordFiles.map((file) => (
-    <SingleRecording key={file} fileName={file}></SingleRecording>
+    <SingleRecording
+      key={file}
+      fileName={file}
+      setrecordFiles={setrecordFiles}
+    ></SingleRecording>
   ));
 
   return (

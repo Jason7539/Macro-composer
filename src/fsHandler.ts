@@ -1,6 +1,6 @@
 import { BrowserWindow, ipcMain } from "electron";
 import path from "path";
-import { readdir } from "node:fs/promises";
+import { readdir, rm } from "node:fs/promises";
 
 export default class FsHandler {
   ipcMain: Electron.IpcMain;
@@ -16,10 +16,17 @@ export default class FsHandler {
   }
   listen() {
     this.getRecordings();
+    this.deleteRecording();
   }
 
   async getRecordings() {
     this.ipcMain.handle("getRecordings", async () => readdir(this.recordDir));
+  }
+
+  async deleteRecording() {
+    this.ipcMain.handle("deleteRecording", async (_event, fileName: string) => {
+      rm(path.join(this.recordDir, fileName), { force: true });
+    });
   }
 
   getCompose() {}
