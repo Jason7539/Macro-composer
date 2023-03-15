@@ -3,7 +3,7 @@ import path from "path";
 import fs from "fs";
 import lepikjs from "lepikjs";
 import { v4 as uuidv4 } from "uuid";
-import { execFileSync } from "child_process";
+import { execFile } from "child_process";
 
 export default class AutomationControlHandler {
   ipcMain: Electron.IpcMain;
@@ -75,7 +75,7 @@ export default class AutomationControlHandler {
         let filePath = path.join(this.recordDir, fileName);
 
         // when node option is true in webpack.config.cjs __dirname /src
-        execFileSync(path.join(__dirname, "..", "dist", "keyMouse.exe"), [
+        execFile(path.join(__dirname, "..", "dist", "keyMouse.exe"), [
           filePath,
         ]);
       } catch (e) {
